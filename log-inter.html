@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>בין-עירוני</title>
+<meta name="theme-color" content="#14202B">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@700;900&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    background:#14202B; color:#EFE3C8; font-family:'Heebo',sans-serif;
+    height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+  }
+  .dot{ width:64px; height:64px; border-radius:50%; background:#B5562B; margin-bottom:18px;
+    display:flex; align-items:center; justify-content:center; font-size:30px; }
+  h1{ font-size:22px; margin:0 0 6px; }
+  p{ font-size:13px; color:#E3D5B4; opacity:.75; margin:0 0 22px; font-family:'IBM Plex Mono',monospace; }
+  a{
+    display:inline-block; background:#D98E3F; color:#14202B; text-decoration:none;
+    font-weight:700; padding:12px 22px; border-radius:999px; font-size:14px;
+  }
+</style>
+</head>
+<body>
+  <div class="dot">✓</div>
+  <h1>נסיעת בין-עירוני נרשמה</h1>
+  <p id="ts"></p>
+  <a href="index.html">פתח את האפליקציה</a>
+<script>
+  const STORE_KEY = 'tripTracker.trips';
+  function loadTrips(){
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
+    catch(e){ return []; }
+  }
+  const trips = loadTrips();
+  trips.push({ type: 'inter', ts: Date.now() });
+  localStorage.setItem(STORE_KEY, JSON.stringify(trips));
+  document.getElementById('ts').textContent = new Date().toLocaleString('he-IL');
+  if(navigator.vibrate) navigator.vibrate(15);
+</script>
+</body>
+</html>
