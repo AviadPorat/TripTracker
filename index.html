@@ -394,6 +394,14 @@ if(!settings.pass && trips.length===0){
 
 render();
 
+// instant-log from a home screen shortcut (?log=city / inter / train)
+const params = new URLSearchParams(location.search);
+const quickType = params.get('log');
+if(quickType && TYPE_LABEL[quickType]){
+  logTrip(quickType);
+  history.replaceState({}, '', location.pathname);
+}
+
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
